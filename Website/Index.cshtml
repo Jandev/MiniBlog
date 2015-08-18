@@ -1,19 +1,26 @@
 ﻿@using System.Web.Caching;
 @{
-    Layout = "~/themes/" + Blog.Theme + "/_Layout.cshtml";
-    DateTime lastModified = DateTime.MinValue;
+	Layout = "~/themes/" + Blog.Theme + "/_Layout.cshtml";
+	DateTime lastModified = DateTime.MinValue;
 
-    if (string.IsNullOrEmpty(Blog.CurrentSlug))
-    {
-        Page.Title = Blog.Title;
-        Page.Description = Blog.Description;
-        Page.ShowPaging = true;
-        
-        var posts = Blog.GetPosts(Blog.PostsPerPage);
+	if (string.IsNullOrEmpty(Blog.CurrentSlug))
+	{
+		Page.Title = Blog.Title;
+		Page.Description = Blog.Description;
+		Page.ShowPaging = true;
 
-        foreach (var post in posts)
-        {
-            @RenderPage("~/themes/" + Blog.Theme + "/Post.cshtml", post);
+		var posts = Blog.GetPosts(Blog.PostsPerPage);
+
+		foreach (var post in posts)
+		{
+			var postToRender = post;
+			var positionOfFirstParagraphEnd = post.Content.IndexOf("</p>", 0, StringComparison.OrdinalIgnoreCase);
+			if (positionOfFirstParagraphEnd > 0 && ((positionOfFirstParagraphEnd + 4) < post.Content.Length))
+			{
+				postToRender = post.Clone();
+				postToRender.Content = postToRender.Content.Substring(0, positionOfFirstParagraphEnd + 4);
+			}
+            @RenderPage("~/themes/" + Blog.Theme + "/Post.cshtml", postToRender);
         }
 
         if (posts.Any())
