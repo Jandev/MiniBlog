@@ -7,7 +7,7 @@ using System.Web;
 using CookComputing.XmlRpc;
 
 [XmlRpcMissingMapping(MappingAction.Ignore)]
-public class Post
+public class Post : ICloneable
 {
     public Post()
     {
@@ -110,4 +110,29 @@ public class Post
 
         return result;
     }
+
+	object ICloneable.Clone()
+	{
+		return Clone();
+	}
+
+	public Post Clone()
+	{
+		var clone = new Post
+		{
+			ID = this.ID,
+			Title = this.Title,
+			Author = this.Author,
+			Content = this.Content,
+			PubDate = this.PubDate,
+			LastModified = this.LastModified,
+			Categories = this.Categories,
+			Comments = this.Comments,
+			IsPublished = this.IsPublished,
+			Slug = this.Slug,
+			Excerpt = this.Excerpt
+
+		};
+		return clone;
+	}
 }
