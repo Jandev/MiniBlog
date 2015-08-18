@@ -53,8 +53,22 @@
 	</script>
 	<div class="container">
 		<header role="banner">
-            <span><a href="~/" itemprop="url">@Blog.Title</a></span><br />
-			<em>@Blog.Description</em>
+			<div class="jumbotron col-md-12">
+				<div class="col-md-6">
+					<a href="/" class="pull-left"><img src="~/Media/logo.png" alt="jan-v.nl logo" title="@Blog.Title"/></a>
+				</div>
+				<div class="col-md-offset-2 col-md-4" style="padding-top: 50px;">
+					<form id="searchform">
+						<input id="searchInput" type="search" class="search-active" placeholder="Search">
+						<button type="submit" class="btn-default">Search</button>
+					</form>
+				</div>
+			</div>
+			<div class="page-header col-md-12">
+				<em>@Blog.Description</em>
+			</div>
+			
+
 		</header>
 
 		<div role="main" class="col-md-8">
@@ -77,9 +91,9 @@
 		</div>
 		
 		<aside role="complementary" class="col-md-3 col-md-offset-1">
-			<form id="searchform">
+			@*<form id="searchform">
 				<input id="searchInput" type="search" class="search-active" placeholder="Search">
-			</form>
+			</form>*@
 			<section>
 				<h3>About me</h3>
 				<img src="/Media/Jan_LThumb.jpg" alt="picture of me" title="Jan V" class="me" width="144" height="144"/>
