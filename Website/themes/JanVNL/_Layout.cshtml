@@ -14,7 +14,7 @@
 	<link rel="dns-prefetch" href="https://feeds.feedburner.com/" />
 
 	<link type="application/rsd+xml" rel="edituri" title="RSD" href="~/views/robots/rsd" />
-	<link type="application/rss+xml" rel="alternate" title="@Blog.Title" href="https://feeds.feedburner.com/WeblogJanV" />
+	<link type="application/rss+xml" rel="alternate" title="@Blog.Title" href="https://jan-v.nl/feed/rss" />
 
 	<link rel="stylesheet" href="@Blog.FingerPrint("/Content/bootstrap.css", "//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")" />
 	<link rel="stylesheet" href="@Blog.FingerPrint("/themes/" + Blog.Theme + "/site.css")" />
@@ -109,7 +109,7 @@
 			<section>
 				<h3>Categories</h3>
 				<ul>
-					@foreach (var cat in Blog.GetCategories())
+					@foreach (var cat in Blog.GetCategories().Where(c => c.Value >= 5))
 					{
 						<li><a href="~/category/@HttpUtility.UrlEncode(cat.Key.ToLowerInvariant())">@cat.Key (@cat.Value)</a></li>
 					}
