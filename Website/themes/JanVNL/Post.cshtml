@@ -23,11 +23,16 @@
 
 	@if (Blog.CurrentPost == null)
 	{
-		var locationOfFirstParagraphEnded = Model.Content.IndexOf("</p>", 0, Model.Content.Length, StringComparison.InvariantCultureIgnoreCase);
-		string content = string.Empty;
-		if (locationOfFirstParagraphEnded > 0)
+		string content = Model.Content;
+
+		var locationOfFirstParagraph = Model.Content.IndexOf("<p>", 0, Model.Content.Length, StringComparison.InvariantCultureIgnoreCase);
+		if (locationOfFirstParagraph >= 0)
 		{
-			content = Model.Content.Substring(0, locationOfFirstParagraphEnded + "</p>".Length);
+			var locationOfSecondParagraph = Model.Content.IndexOf("<p>", locationOfFirstParagraph + 1, StringComparison.InvariantCultureIgnoreCase);
+			if (locationOfSecondParagraph > 0)
+			{
+				content = Model.Content.Substring(0, locationOfSecondParagraph);
+			}
 		}
 		<div itemprop="articleBody">@Html.Raw(Model.GetHtmlContent(content))</div>
 	}
